@@ -1,3 +1,5 @@
+package Text_to_Binary;
+
 public class Conversions {
 
 	// kicking off the whole program
@@ -10,7 +12,7 @@ public class Conversions {
 			System.exit(0);
 		}
 		if (args0.length == 2 && args0[1].equalsIgnoreCase("-v")) {
-			Verbose(args0[0]);
+			BinaryToDecimal(Verbose(args0[0]));
 		} else {
 			NotVerbose(args0[0]);
 		}
@@ -23,7 +25,7 @@ public class Conversions {
 	 * 
 	 * @param word
 	 */
-	private static void Verbose(String word) {
+	private static String Verbose(String word) {
 		// this method is static since this is a very small program and OOP is
 		// unnecessary for the very small scope
 		String binary = "";
@@ -54,6 +56,7 @@ public class Conversions {
 		}
 		System.out.println("\n" + word
 				+ " translated to binary based on ASCII values is " + binary);
+		return binary;
 
 	}
 
@@ -79,5 +82,50 @@ public class Conversions {
 		// if this program were to be called by another program then it could be
 		// good)
 		System.out.print("\n");
+	}
+	
+	/**
+	 * This method will take in a string of binary, then convert it back to base ten. The binary MUST be separated by spaces.
+	 * @param bin
+	 */
+	private static void BinaryToDecimal(String bin){
+		System.out.println("\nConverted back to ASCII:\n");
+		int binlen = bin.length(); //sets the length to a variable 
+		boolean isSameNum= true; //used to track which number is being converted
+		String workShown = "";//used to hold a string of work to be shown
+		int sum = 0; //used to hold the sum of the numbers being added to get the binary
+		String binaryString = "";
+		int power = 0;//used to track 2 to the power of for binary to decimal conversion
+		
+	
+		for(int i = binlen-2; i>=-1; i--){//for loop counts down since it is easier to track what number to; add minus 2 to account for the extra space
+			
+			if(i<0||bin.charAt(i)==' '){
+				isSameNum = false;
+			}
+			if(!isSameNum){
+				binaryString = new StringBuilder(binaryString).reverse().toString();
+				System.out.println(binaryString+" = "+workShown+" = "+sum+"\nTherfore based on the ASCII tables this number represents: "+ ((char)sum));
+				isSameNum = true;
+				binaryString = "";
+				workShown = "";
+				power = 0;
+				sum = 0;
+			}else{
+				binaryString+=bin.charAt(i);//used to show which binary string is getting converted
+				
+				if(bin.charAt(i)=='1'){
+					sum+=Math.pow(2, (double)power);
+					workShown+=(int)Math.pow(2, (double)power);
+					if(i!=0&&bin.charAt(i-1)!=' '){//the i!=0 is evaluated first preventing an index out of bounds exception.
+						workShown+="+";
+					}
+				}
+				power+=1;
+				
+			}
+			
+		}
+		
 	}
 }
