@@ -105,7 +105,7 @@ public class Conversions {
 			}
 			if(!isSameNum){
 				binaryString = new StringBuilder(binaryString).reverse().toString();
-				System.out.println(binaryString+" = "+workShown+" = "+sum+"\nTherfore based on the ASCII tables this number represents: "+ ((char)sum));
+				System.out.println(binaryString+" = "+workShown+" = "+sum+"\nTherefore based on the ASCII tables this number represents: "+ ((char)sum));
 				isSameNum = true;
 				binaryString = "";
 				workShown = "";
